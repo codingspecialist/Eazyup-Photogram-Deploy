@@ -11,11 +11,24 @@
 - Elastic Beanstalk war 배포하기
 
 ### 빌드하기
-mvn clean package
+빌드는 dev 모드로 하고 추후 엘라스틱빈스톡에서 실행은 prod 모드로 실행
+./mvnw clean package -Dspring.profiles.active=dev
+
+### 실행테스트
+java -jar -Dspring.profiles.active=dev photogram-start-0.0.1-SNAPSHOT.jar
+src/main/webapp 폴더 가져오기
+
+두개 압축해서 photogram.zip 으로 만들기
+
+### 배포하기
+photogram.zip 을 엘라스틱 빈스톡에 배포하기
+
 
 ### 테이블 생성
 ```sql
 create database photogram;
+
+USE photogram;
 
 create table Comment (
   id integer not null auto_increment,
