@@ -3,12 +3,11 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <sec:authorize access="isAuthenticated()">
-	<sec:authentication property="principal" var="principal" />
+	<sec:authentication property="principal" var="principal"/>
 </sec:authorize>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,23 +33,28 @@
 
 <body>
 	
+	<!-- principalId 담아두는 곳 -->
+	<input type="hidden" id="principalId" value="${principal.user.id}" />
+	
 	<header class="header">
 		<div class="container">
-			<a href="/image/story" class="logo">
+			<a href="/" class="logo">
 				<img src="/images/logo.jpg" alt="">
 			</a>
 			<nav class="navi">
 				<ul class="navi-list">
-					<li class="navi-item"><a href="/image/story">
+					<li class="navi-item"><a href="/">
 							<i class="fas fa-home"></i>
 						</a></li>
 					<li class="navi-item"><a href="/image/popular">
 							<i class="far fa-compass"></i>
 						</a></li>
-					<li class="navi-item"><a href="/user/profile">
+					<li class="navi-item"><a href="/user/${principal.user.id}">
 							<i class="far fa-user"></i>
 						</a></li>
 				</ul>
 			</nav>
 		</div>
 	</header>
+	
+	
