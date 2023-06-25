@@ -48,4 +48,4 @@ spring:
             
 
 file:
-  path: /home/ec2-user/upload/
+  path: /var/app/current/upload
