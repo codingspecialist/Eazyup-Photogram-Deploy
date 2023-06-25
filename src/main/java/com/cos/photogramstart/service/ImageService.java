@@ -61,11 +61,6 @@ public class ImageService {
 		UUID uuid = UUID.randomUUID(); // uuid
 		String imageFileName = uuid+"_"+imageUploadDto.getFile().getOriginalFilename(); // 1.jpg
 		System.out.println("이미지 파일이름 : "+imageFileName);
-		System.out.println("===============================================================");
-		System.out.println("===============================================================");
-		System.out.println("uploadFolder+imageFileName : "+uploadFolder+imageFileName);
-		System.out.println("===============================================================");
-		System.out.println("===============================================================");
 		Path imageFilePath = Paths.get(uploadFolder+imageFileName);
 		
 		// 통신, I/O -> 예외가 발생할 수 있다.

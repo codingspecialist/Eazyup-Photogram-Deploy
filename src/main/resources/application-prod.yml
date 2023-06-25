@@ -48,4 +48,4 @@ spring:
             
 
 file:
-  path: /var/app/current/upload
+  path: /var/app/current/upload/
