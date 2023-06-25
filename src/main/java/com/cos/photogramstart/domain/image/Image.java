@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.PrePersist;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.cos.photogramstart.domain.comment.Comment;
@@ -30,6 +31,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "image_tb")
 public class Image { // N,   1
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

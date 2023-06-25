@@ -25,6 +25,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(
+		name = "subscribe_tb",
 		uniqueConstraints = {
 				@UniqueConstraint(
 						name="subscribe_uk",

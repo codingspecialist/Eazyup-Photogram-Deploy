@@ -2,26 +2,27 @@
 
 ### 배포 프로세스
 - AWS 회원가입
-- github 소스코드 다운받기 (war 모드로 변경함)
+- github 소스코드 다운받기
 - profile 세팅
-- RDS 만들기
+- RDS 만들기 (default 보안그룹설정 - 3306 내IP, 3306 default 설정)
 - 테이블 생성하기
 - Elastic Beanstalk 만들기
-- RDS 포트 3306 개방하기 (내IP와 Elastic Beanstalk 보안그룹)
-- Elastic Beanstalk war 배포하기
+- Elastic Beanstalk jar와 webapp 폴더 배포하기
 
 ### 빌드하기
-빌드는 dev 모드로 하고 추후 엘라스틱빈스톡에서 실행은 prod 모드로 실행
-./mvnw clean package -Dspring.profiles.active=dev
+- 빌드는 dev 모드로 하고 추후 엘라스틱빈스톡에서 실행은 prod 모드로 실행
+- ./mvnw clean package -Dspring.profiles.active=dev
 
 ### 실행테스트
-java -jar -Dspring.profiles.active=dev photogram-start-0.0.1-SNAPSHOT.jar
-src/main/webapp 폴더 가져오기
-
-두개 압축해서 photogram.zip 으로 만들기
+- java -jar -Dspring.profiles.active=dev 
 
 ### 배포하기
-photogram.zip 을 엘라스틱 빈스톡에 배포하기
+- photogram-start-0.0.1-SNAPSHOT.jar
+- src/main/webapp 폴더 가져오기
+- 두개 압축해서 deploy-1.0.zip 으로 만들기
+
+### 배포하기
+- deploy-1.0.zip 을 엘라스틱 빈스톡에 배포하기
 
 
 ### 테이블 생성
@@ -30,7 +31,7 @@ create database photogram;
 
 USE photogram;
 
-create table Comment (
+create table comment_tb (
   id integer not null auto_increment,
   content varchar(100) not null,
   createDate datetime(6),
@@ -40,7 +41,7 @@ create table Comment (
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 
-create table Image (
+create table image_tb (
   id integer not null auto_increment,
   caption varchar(255),
   createDate datetime(6),
@@ -50,7 +51,7 @@ create table Image (
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 
-create table Likes (
+create table likes_tb (
   id integer not null auto_increment,
   createDate datetime(6),
   imageId integer,
@@ -59,7 +60,7 @@ create table Likes (
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 
-create table Subscribe (
+create table subscribe_tb (
   id integer not null auto_increment,
   createDate datetime(6),
   fromUserId integer,
@@ -68,7 +69,7 @@ create table Subscribe (
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 
-create table User (
+create table user_tb (
   id integer not null auto_increment,
   bio varchar(255),
   createDate datetime(6),
@@ -85,49 +86,49 @@ create table User (
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 
-alter table Likes 
+alter table likes_tb 
  add constraint likes_uk unique (imageId, userId);
 
-alter table Subscribe 
+alter table subscribe_tb 
  add constraint subscribe_uk unique (fromUserId, toUserId);
 
-alter table User 
+alter table user_tb 
  add constraint UK_jreodf78a7pl5qidfh43axdfb unique (username);
 
-alter table Comment 
+alter table comment_tb 
  add constraint FKm1kgtoxiwl6jebkoqxesmh20k 
  foreign key (imageId) 
- references Image (id);
+ references image_tb (id);
 
-alter table Comment 
+alter table comment_tb 
  add constraint FKr4r2wh1b3rucuaxui9lkjwjlu 
  foreign key (userId) 
- references User (id);
+ references user_tb (id);
 
-alter table Image 
+alter table image_tb 
  add constraint FKgrmt25snbia9s3sxls7gn3tvl 
  foreign key (userId) 
- references User (id);
+ references user_tb (id);
 
-alter table Likes 
+alter table likes_tb 
  add constraint FKdrmcrl980hncyhnurju8nm5dy 
  foreign key (imageId) 
- references Image (id);
+ references image_tb (id);
 
-alter table Likes 
+alter table likes_tb 
  add constraint FK1f0ppyupbg6s2v5i9h74rglto 
  foreign key (userId) 
- references User (id);
+ references user_tb (id);
 
-alter table Subscribe 
+alter table subscribe_tb 
  add constraint FK9dl9afu79ab4cxwbbgif6t6ie 
  foreign key (fromUserId) 
- references User (id);
+ references user_tb (id);
 
-alter table Subscribe 
+alter table subscribe_tb 
  add constraint FKl3r4mww8oeu08s3mqyq138qp3 
  foreign key (toUserId) 
- references User (id);
+ references user_tb (id);
 ```
 
 ### 인메모리 DB로 테스트 하는 yml, maven

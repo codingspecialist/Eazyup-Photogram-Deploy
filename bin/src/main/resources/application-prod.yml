@@ -1,0 +1,51 @@
+server:
+  port: 5000
+  servlet:
+    context-path: /
+    encoding:
+      charset: utf-8
+      enabled: true
+    
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+      
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://${rds.host}:3306/photogram?serverTimezone=Asia/Seoul
+    username: ${rds.username}
+    password: ${rds.password}
+    
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: none # create, update, none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+      
+  servlet: 
+    multipart:
+      enabled: true
+      max-file-size: 2MB
+
+  security:
+    user:
+      name: test
+      password: 1234   
+
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 315293796826930
+            client-secret: 487af9479023b8c0e58f913b411327cf
+            scope:
+            - public_profile
+            - email
+            
+
+file:
+  path: /home/ec2-user/upload/
